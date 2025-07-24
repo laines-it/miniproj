@@ -1,0 +1,15 @@
+<!-- templates/welcome.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-card">
+    <div class="welcome-content">
+        <div class="welcome-icon">🎉</div>
+        <h2 class="mb-3">Доступ разрешен!</h2>
+        <p class="lead">Вы успешно прошли аутентификацию</p>
+        <p class="text-muted">Добро пожаловать в защищенную зону</p>
+        
+        <a href="{{ url_for('logout') }}" class="btn logout-btn">Выйти</a>
+    </div>
+</div>
+{% endblock %}

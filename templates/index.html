@@ -1,0 +1,25 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="auth-card">
+    <div class="header">
+        <h1>🔒 Secure Access</h1>
+    </div>
+    
+    <div class="form-container">
+        {% if error %}
+        <div class="error-message">
+            {{ error }}
+        </div>
+        {% endif %}
+        
+        <form method="POST">
+            <div class="mb-3">
+                <input type="password" class="form-control" name="code" placeholder="Введите код доступа" required autocomplete="off" autofocus>
+            </div>
+            <button type="submit" class="btn btn-primary">Проверить код</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
