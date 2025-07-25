@@ -1,0 +1,8 @@
+<!-- static/raven.svg -->
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <path d="M30,40 Q40,20 50,30 Q60,20 70,40 Q80,50 70,60 Q60,80 50,70 Q40,80 30,60 Q20,50 30,40" 
+        fill="#3a3a3a" stroke="#8a0303" stroke-width="1.5"/>
+  <circle cx="40" cy="45" r="3" fill="#d8d8d8"/>
+  <circle cx="60" cy="45" r="3" fill="#d8d8d8"/>
+  <path d="M45,55 Q50,60 55,55" fill="none" stroke="#d8d8d8" stroke-width="1.5"/>
+</svg>

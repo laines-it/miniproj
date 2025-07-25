@@ -1,0 +1,215 @@
+<!-- templates/test.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="gothic-container">
+    <div class="gothic-card">
+        <h1 class="gothic-title">Тест на Лию</h1>
+        
+        <div id="test-container">
+            <!-- Тест будет отображаться здесь динамически -->
+        </div>
+        
+        <p class="gothic-footer">gothcringelord supremacy</p>
+    </div>
+</div>
+
+<script>
+    // Данные теста
+    const questions = {{ questions|tojson }};
+    let currentQuestion = 0;
+    let points = 0;
+    let selectedOption = null;
+
+    // Функция отображения вопроса
+    function renderQuestion() {
+        const q = questions[currentQuestion];
+        let html = `
+            <div class="question-header">
+                <div class="question-counter">Вопрос ${currentQuestion + 1} из ${questions.length}</div>
+                <h2 class="question-text">${q.question}</h2>
+            </div>
+            
+            <div class="question-image">
+                <img src="/static/${q.image}" alt="">
+            </div>
+            
+            <div class="options-container">
+        `;
+        
+        q.options.forEach((option, index) => {
+            html += `
+                <div class="option ${selectedOption === index ? 'selected' : ''}" 
+                     onclick="selectOption(${index})">
+                    ${option.text}
+                </div>
+            `;
+        });
+        
+        html += `</div>`;
+        
+        // Если ответ выбран, показываем комментарий и кнопку
+        if (selectedOption !== null) {
+            const isCorrect = q.options[selectedOption].correct;
+            if(isCorrect){
+                points++;
+            }
+            html += `
+                <div class="comment-box ${isCorrect ? 'correct' : 'incorrect'}">
+                    <div class="comment-icon">${isCorrect ? '✓' : '✗'}</div>
+                    <div class="comment-text">${isCorrect ? q.commentTrue : q.commentFalse}</div>
+                </div>
+                <button class="gothic-button next-button" onclick="nextQuestion()">Дальше</button>
+            `;
+        }
+        
+        document.getElementById('test-container').innerHTML = html;
+    }
+
+    // Выбор варианта ответа
+    function selectOption(index) {
+        if (selectedOption === null) {
+            selectedOption = index;
+            renderQuestion();
+        }
+    }
+
+    // Переход к следующему вопросу
+    function nextQuestion() {
+        currentQuestion++;
+        selectedOption = null;
+        
+        if (currentQuestion < questions.length) {
+            renderQuestion();
+        } else {
+            if (points >= questions.length) {
+                document.getElementById('test-container').innerHTML = `
+                    <div class="test-complete">
+                        <div class="gothic-icon">🏆</div>
+                        <h2>Испытание пройдено!</h2>
+                        <p>Даже если тест был хуйня, то ты все равно заслужила подарок</p>
+                        <h1>NFU834FU347F3BFE8BF783</h1>
+                        <h1>ПРОМОКОД НА 1000р в 🍎</h1>
+                        </div>
+                `;
+            } else {
+                document.getElementById('test-container').innerHTML = `
+                    <div class="test-complete">
+                        <div class="gothic-icon">☠︎︎</div>
+                        <h2>Ну ты чего :(</h2>
+                        <p>Не на все вопросы правильно ответила, слишком переметапостиронизировала</p>
+                        <p><a href="{{ url_for('sanctuary') }}" class="gothic-link">Вернуться в комнату вайба</a></p>
+                    </div>
+                `;
+            }
+        }
+    }
+
+    // Инициализация теста при загрузке
+    window.onload = renderQuestion;
+</script>
+
+<style>
+    .question-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    
+    .question-counter {
+        font-size: 1.1rem;
+        color: var(--candle);
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+    
+    .question-text {
+        font-family: 'Cinzel Decorative', cursive;
+        color: var(--moonlight);
+        font-size: 1.5rem;
+        margin: 0;
+    }
+    
+    .question-image {
+        text-align: center;
+        margin: 20px 0;
+    }
+    
+    .question-image img {
+        max-width: 100%;
+        max-height: 200px;
+        border: 2px solid var(--blood);
+        box-shadow: 0 0 15px rgba(138, 3, 3, 0.5);
+    }
+    
+    .options-container {
+        margin: 30px 0;
+    }
+    
+    .option {
+        background: rgba(30, 30, 30, 0.7);
+        border: 2px solid var(--stone);
+        padding: 15px;
+        margin: 12px 0;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    .option:hover {
+        border-color: var(--blood);
+        background: rgba(60, 10, 10, 0.7);
+    }
+    
+    .option.selected {
+        border-color: var(--candle);
+        background: rgba(70, 20, 0, 0.8);
+        box-shadow: 0 0 15px rgba(233, 185, 110, 0.5);
+    }
+    
+    .comment-box {
+        padding: 15px;
+        border-radius: 5px;
+        margin: 20px 0;
+        display: flex;
+        align-items: center;
+        border-left: 4px solid;
+    }
+    
+    .comment-box.correct {
+        background: rgba(20, 60, 20, 0.6);
+        border-left-color: #28a745;
+    }
+    
+    .comment-box.incorrect {
+        background: rgba(60, 20, 20, 0.6);
+        border-left-color: #dc3545;
+    }
+    
+    .comment-icon {
+        font-size: 2rem;
+        margin-right: 15px;
+        width: 40px;
+        text-align: center;
+    }
+    
+    .comment-text {
+        flex: 1;
+        font-size: 1.1rem;
+    }
+    
+    .next-button {
+        margin-top: 15px;
+    }
+    
+    .test-complete {
+        text-align: center;
+        padding: 30px 0;
+    }
+    
+    .test-complete h2 {
+        color: var(--candle);
+        margin: 20px 0;
+    }
+</style>
+{% endblock %}

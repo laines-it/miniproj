@@ -4,7 +4,7 @@
 {% block content %}
 <div class="auth-card">
     <div class="header">
-        <h1>🔒 Secure Access</h1>
+        <h1>⧗ Secure Access ⧗</h1>
     </div>
     
     <div class="form-container">
@@ -18,8 +18,23 @@
             <div class="mb-3">
                 <input type="password" class="form-control" name="code" placeholder="Введите код доступа" required autocomplete="off" autofocus>
             </div>
-            <button type="submit" class="btn btn-primary">Проверить код</button>
+            <button type="submit" class="test-invitation">Проверить код</button>
         </form>
     </div>
 </div>
+
+<style>
+    .test-invitation {
+        background: rgba(132, 2, 2, 0.6);
+        border: 2px solid var(--blood);
+        padding: 20px;
+        margin: 25px 0;
+        text-align: center;
+    }
+    
+    .test-invitation p {
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+    }
+</style>
 {% endblock %}
