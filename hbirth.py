@@ -115,6 +115,18 @@ TEST_QUESTIONS = [
         ],
         "commentTrue": "Я честно, хуй его знает",
         "commentFalse": "Я честно, хуй его знает"
+    },
+    {
+        "id": 11,
+        "question": "В каком греческом йогурте БОЛЬШЕ калорий (на 100г)?",
+        "image": "",
+        "options": [
+            {"text": "Простоквашино", "correct": False},
+            {"text": "Teos", "correct": True},
+            {"text": "Venn's", "correct": False}
+        ],
+        "commentTrue": "Да, П-63 T-66.8 V-55",
+        "commentFalse": "Нет, ты точно не Лия"
     }
 ]
 
